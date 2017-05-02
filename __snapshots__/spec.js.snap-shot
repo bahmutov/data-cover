@@ -1,0 +1,46 @@
+exports['forms label from function name 1'] = "spec.js:add:10"
+
+exports['instruments 1'] = "if (!global.__instrumenter) {\n  global.__instrumenter = {\n    \"functions\": {\n      \"spec.js:add:0\": {\n        \"a\": [],\n        \"b\": []\n      }\n    }\n  }\n};\n\nfunction add(a, b) {\n  __instrumenter.functions['spec.js:add:0']['a'].push(a)\n  __instrumenter.functions['spec.js:add:0']['b'].push(b)\n  return a + b\n}\nadd(10, 2)\nadd(20, 3)\nadd(40, 2)"
+
+exports['fills values when running instrumented code 1'] = {
+  "functions": {
+    "spec.js:add:0": {
+      "a": [
+        10,
+        20,
+        40
+      ],
+      "b": [
+        2,
+        3,
+        2
+      ]
+    }
+  }
+}
+
+exports['has all values for param a 1'] = {
+  "a": [
+    10,
+    20,
+    40
+  ],
+  "b": [
+    2,
+    3,
+    2
+  ]
+}
+
+exports['has all values for param a 2'] = [
+  10,
+  20,
+  40
+]
+
+exports['has all values for param a 3'] = [
+  2,
+  3,
+  2
+]
+
