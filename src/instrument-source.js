@@ -2,7 +2,7 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const debug = require('debug')('comment-value')
 const falafel = require('falafel')
-const {pluck} = require('ramda')
+const {pluck, propEq} = require('ramda')
 const {functionLabel} = require('./utils')
 
 const beautifySource = require('./beautify')
@@ -13,6 +13,8 @@ if (!global.instrument) {
   global.instrument = new EventEmitter()
 }
 const emitter = global.instrument
+
+const isFunction = propEq('type', 'FunctionDeclaration')
 
 function instrumentSource (source, filename) {
   la(is.string(source), 'missing source', source)
@@ -25,7 +27,7 @@ function instrumentSource (source, filename) {
   }
 
   function instrument (node) {
-    if (node.type === 'FunctionDeclaration') {
+    if (isFunction(node)) {
       const name = node.id.name
       debug('found', node.type, name, 'at start', node.start, '\n' + node.source())
       const params = pluck('name', node.params)
