@@ -2,8 +2,8 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const debug = require('debug')('comment-value')
 const falafel = require('falafel')
-const {pluck, propEq} = require('ramda')
-const {functionLabel} = require('./utils')
+const {pluck} = require('ramda')
+const {functionLabel, isFunction} = require('./utils')
 
 const beautifySource = require('./beautify')
 // emit events when finding comment / instrumenting
@@ -13,8 +13,6 @@ if (!global.instrument) {
   global.instrument = new EventEmitter()
 }
 const emitter = global.instrument
-
-const isFunction = propEq('type', 'FunctionDeclaration')
 
 function instrumentSource (source, filename) {
   la(is.string(source), 'missing source', source)

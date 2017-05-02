@@ -1,24 +1,17 @@
 const la = require('lazy-ass')
 const is = require('check-more-types')
 const falafel = require('falafel')
-const {propEq} = require('ramda')
-const {stripIndent, stripIndents} = require('common-tags')
-const beautifySource = require('../src/beautify')
+const {stripIndent} = require('common-tags')
 const snapshot = require('snap-shot')
 
-const isFunction = propEq('type', 'FunctionDeclaration')
+const beautifySource = require('../src/beautify')
+const {isFunction, insertComments} = require('../src/utils')
 
 function addCommentsToFunctions (source) {
   la(is.string(source), 'missing source', source)
   function addComments (node) {
     if (isFunction(node)) {
-      const innerSource = node.body.source().slice(2)
-      const output = stripIndents`{
-        // this is a comment
-        // another comment
-        ${innerSource}
-      `
-      node.body.update(output)
+      insertComments(node, ['line 1', 'line 2'])
     }
   }
   const output = falafel(source, addComments) + '\n'

@@ -1,2 +1,2 @@
-exports['keeps comments 1'] = "function add(a, b) {\n  // this is a comment\n  // another comment\n  return a + b\n}"
+exports['keeps comments 1'] = "function add(a, b) {\n  /*\n  line 1\n  line 2\n  */\n  return a + b\n}"
 
