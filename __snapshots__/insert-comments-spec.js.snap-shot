@@ -1,0 +1,2 @@
+exports['keeps comments 1'] = "function add(a, b) {\n  // this is a comment\n  // another comment\n  return a + b\n}"
+

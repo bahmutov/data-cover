@@ -6,6 +6,8 @@ const snapshot = require('snap-shot')
 const {functionLabel} = require('../src/utils')
 const {stripIndent} = require('common-tags')
 
+/* global describe, it, beforeEach */
+/* eslint-disable no-eval */
 describe('function label', () => {
   it('is a function', () => {
     la(is.fn(functionLabel))

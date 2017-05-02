@@ -4,7 +4,9 @@
   "description": "Instruments code for collecting data coverage (instead of code coverage)",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/*spec.js"
+    "test": "mocha test/*spec.js",
+    "lint": "standard --verbose --fix src/*.js test/*.js",
+    "pretest": "npm run lint"
   },
   "repository": {
     "type": "git",
