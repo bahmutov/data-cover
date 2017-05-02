@@ -1,0 +1,39 @@
+{
+  "name": "data-cover",
+  "version": "1.0.0",
+  "description": "Instruments code for collecting data coverage (instead of code coverage)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/data-cover.git"
+  },
+  "keywords": [
+    "test",
+    "testing",
+    "cover",
+    "coverage"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bahmutov/data-cover/issues"
+  },
+  "homepage": "https://github.com/bahmutov/data-cover#readme",
+  "devDependencies": {
+    "common-tags": "1.4.0",
+    "mocha": "3.2.0",
+    "snap-shot": "2.16.0",
+    "standard": "10.0.2"
+  },
+  "dependencies": {
+    "check-more-types": "2.23.0",
+    "debug": "2.6.0",
+    "falafel": "2.0.0",
+    "js-beautify": "1.6.4",
+    "lazy-ass": "1.5.0",
+    "ramda": "0.23.0"
+  }
+}
