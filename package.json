@@ -7,7 +7,7 @@
     "test": "mocha test/*spec.js",
     "lint": "standard --verbose --fix src/*.js test/*.js",
     "pretest": "npm run lint",
-    "e2e": "mocha -r ./src/bdd.js e2e/spec.js"
+    "e2e": "DEBUG=data-cover mocha -r ./src/bdd.js e2e/spec.js"
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "falafel": "2.0.0",
     "js-beautify": "1.6.4",
     "lazy-ass": "1.5.0",
+    "node-hook": "0.4.0",
     "ramda": "0.23.0"
   }
 }
