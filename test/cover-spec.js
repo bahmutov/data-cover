@@ -12,7 +12,7 @@ describe('updates code with results', () => {
   `
   // fake collected data
   const filename = 'spec.js'
-  const label = functionLabel(filename, 'add', 0)
+  const label = functionLabel('add', 0)
   const functions = {
     [label]: {
       a: [1, 2, 3],

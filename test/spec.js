@@ -14,7 +14,7 @@ describe('function label', () => {
   })
 
   it('forms label from function name', () => {
-    const label = functionLabel('spec.js', 'add', 10)
+    const label = functionLabel('add', 10)
     snapshot(label)
   })
 })
@@ -75,8 +75,8 @@ describe('code instrument', () => {
   it('has all values for param a', () => {
     const instrumented = instrument(source, filename)
     eval(instrumented)
-    const label = functionLabel(filename, 'add', 0)
-    const addParams = global.__instrumenter.functions[label]
+    const label = functionLabel('add', 0)
+    const addParams = global.__instrumenter.files[filename].functions[label]
     snapshot(addParams)
 
     la(is.array(addParams.a), 'has values for param "a"', addParams)

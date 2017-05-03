@@ -3,12 +3,13 @@
 const hook = require('node-hook')
 const debug = require('debug')('data-cover')
 const instrument = require('./instrument-source')
+const {keys} = require('ramda')
 
 const isSpec = filename => /spec\.js$/.test(filename)
 
 const is3rdParty = filename => /node_modules/.test(filename)
 
-function onFileLoad(source, filename) {
+function onFileLoad (source, filename) {
   if (isSpec(filename)) {
     debug('Skipping file %s', filename)
     return source
@@ -28,4 +29,7 @@ process.on('exit', function () {
   hook.unhook('.js')
   const results = JSON.stringify(global.__instrumenter.functions, null, 2)
   debug(results)
+
+  const files = keys(global.__instrumenter.functions)
+  console.log('covered source files', files)
 })

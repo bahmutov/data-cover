@@ -15,7 +15,7 @@ function updateSource (functions, source, filename) {
       return
     }
 
-    const label = functionLabel(filename, node)
+    const label = functionLabel(node)
     const data = functions[label]
     if (!data) {
       return

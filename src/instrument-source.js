@@ -21,8 +21,16 @@ function instrumentSource (source, filename) {
   // TODO handle multiple files by making this object global
   // and avoiding overwriting it
   const __instrumenter = global.__instrumenter || {
-    functions: {}
+    files: {}
   }
+
+  if (!__instrumenter.files[filename]) {
+    __instrumenter.files[filename] = {
+      functions: {}
+    }
+  }
+
+  const fileRef = __instrumenter.files[filename].functions
 
   function instrument (node) {
     if (isFunction(node)) {
@@ -35,12 +43,12 @@ function instrumentSource (source, filename) {
         params
       })
 
-      const label = functionLabel(filename, name, node.start)
-      const paramsRef = __instrumenter.functions[label] = {}
+      const label = functionLabel(name, node.start)
+      const paramsRef = fileRef[label] = {}
       let paramsSave = ''
       node.params.forEach(param => {
         paramsRef[param.name] = []
-        paramsSave += `__instrumenter.functions['${label}']['${param.name}'].push(${param.name})\n`
+        paramsSave += `__instrumenter.files['${filename}'].functions['${label}']['${param.name}'].push(${param.name})\n`
       })
       const innerSource = node.body.source().slice(2)
       const updatedSource = '{\n' + paramsSave + innerSource
