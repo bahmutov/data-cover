@@ -7,7 +7,7 @@
     "test": "mocha test/*spec.js",
     "lint": "standard --verbose --fix src/*.js test/*.js",
     "pretest": "npm run lint",
-    "e2e": "mocha e2e/spec.js"
+    "e2e": "mocha -r ./src/bdd.js e2e/spec.js"
   },
   "repository": {
     "type": "git",
