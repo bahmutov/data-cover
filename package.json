@@ -6,12 +6,17 @@
   "scripts": {
     "test": "mocha test/*spec.js",
     "lint": "standard --verbose --fix src/*.js test/*.js",
-    "pretest": "npm run lint"
+    "pretest": "npm run lint",
+    "e2e": "mocha e2e/spec.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bahmutov/data-cover.git"
   },
+  "files": [
+    "src",
+    "bin"
+  ],
   "keywords": [
     "test",
     "testing",
