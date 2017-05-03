@@ -1,6 +1,6 @@
-const {add, abs} = require('./math')
+const {add, abs, isEmail} = require('./my-lib')
 
-describe('math', () => {
+describe('my library', () => {
   describe('add', () => {
     it('adds positive numbers', () => {
       console.assert(add(2, 3) === 5)
@@ -18,5 +18,13 @@ describe('math', () => {
       console.assert(abs(42) === 42)
     })
     // hmm, no unit tests for absolute of negative numbers?
+  })
+
+  describe('email regex', () => {
+    it('passes gmail emails', () => {
+      console.assert(isEmail('user@gmail.com'))
+      // hmm, is this enough?
+      // maybe we should test 'user.name@gmail.com' and 'user@mail.ru'!
+    })
   })
 })
