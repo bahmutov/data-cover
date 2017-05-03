@@ -3,7 +3,9 @@
 const hook = require('node-hook')
 const debug = require('debug')('data-cover')
 const instrument = require('./instrument-source')
+const updateSource = require('./update-source')
 const {keys} = require('ramda')
+const read = require('fs').readFileSync
 
 const isSpec = filename => /spec\.js$/.test(filename)
 
@@ -27,9 +29,18 @@ hook.hook('.js', onFileLoad)
 process.on('exit', function () {
   debug('data-cover is done')
   hook.unhook('.js')
-  const results = JSON.stringify(global.__instrumenter.functions, null, 2)
-  debug(results)
 
-  const files = keys(global.__instrumenter.functions)
+  const results = global.__instrumenter.files
+  const message = JSON.stringify(results, null, 2)
+  debug(message)
+
+  const files = keys(results)
   console.log('covered source files', files)
+
+  files.forEach(filename => {
+    const functions = results[filename].functions
+    const source = read(filename, 'utf8')
+    const updated = updateSource(functions, source, filename)
+    console.log(updated)
+  })
 })
