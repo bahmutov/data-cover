@@ -7,7 +7,8 @@
     "test": "mocha test/*spec.js",
     "lint": "standard --verbose --fix src/*.js test/*.js",
     "pretest": "npm run lint",
-    "e2e": "DEBUG=data-cover mocha -r ./src/bdd.js e2e/spec.js"
+    "e2e": "DEBUG=data-cover mocha -r ./src/bdd.js e2e/spec.js",
+    "cover": "nyc --reporter=html mocha e2e/spec.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "common-tags": "1.4.0",
     "mocha": "3.2.0",
+    "nyc": "10.0.0",
     "snap-shot": "2.16.0",
     "standard": "10.0.2"
   },
