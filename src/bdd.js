@@ -6,9 +6,11 @@ const instrument = require('./instrument-source')
 const updateSource = require('./update-source')
 const {keys} = require('ramda')
 
-const read = require('fs').readFileSync
-const write = require('fs').writeFileSync
-const exists = require('fs').existsSync
+const {
+  readFileSync: read,
+  writeFileSync: write,
+  existsSync: exists
+} = require('fs')
 
 const {join, relative} = require('path')
 const mkdirp = require('mkdirp')
