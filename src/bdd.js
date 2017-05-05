@@ -5,6 +5,7 @@ const debug = require('debug')('data-cover')
 const instrument = require('./instrument-source')
 const updateSource = require('./update-source')
 const {keys} = require('ramda')
+const md5 = require('md5')
 
 const {
   readFileSync: read,
@@ -18,6 +19,8 @@ const mkdirp = require('mkdirp')
 const isSpec = filename => /spec\.js$/.test(filename)
 
 const is3rdParty = filename => /node_modules/.test(filename)
+
+const relativeTo = relative.bind(null, process.cwd())
 
 function onFileLoad (source, filename) {
   if (isSpec(filename)) {
@@ -34,15 +37,37 @@ function onFileLoad (source, filename) {
 }
 hook.hook('.js', onFileLoad)
 
-function saveHtmlReport (filename, source) {
-  const outputDir = 'output'
+function saveIndex (outputDir, pages) {
+  const links = pages.map(page => `<li>
+    <a href="${page.link}">${page.name}</a>
+  </li>
+  `).join('\n')
+  const html = `
+  <body>
+    <h2>Instrumented files</h2>
+    <ul>
+    ${links}
+    </ul>
+  </body>
+  `
+
+  const outputFilename = join(outputDir, 'index.html')
+  write(outputFilename, html, 'utf8')
+  debug('saved index page %s', outputFilename)
+}
+
+function saveHtmlReport (outputDir, filename, source) {
   if (!exists(outputDir)) {
     debug('making output folder %s', outputDir)
     mkdirp.sync(outputDir)
   }
-  const relativeName = relative(process.cwd(), filename)
+  const relativeName = relativeTo(filename)
   debug('relative path %s', relativeName)
-  const outputFilename = join(outputDir, 'index.html')
+
+  const filenameHashed = md5(relativeName)
+  debug('output filename hash', filenameHashed)
+
+  const outputFilename = join(outputDir, filenameHashed + '.html')
   const html = `
   <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
@@ -58,13 +83,14 @@ function saveHtmlReport (filename, source) {
   debug('saved file %s', outputFilename)
 }
 
-const writeFileResults = results => filename => {
+const writeFileResults = outputDir => results => filename => {
   const functions = results[filename].functions
   const source = read(filename, 'utf8')
   const updated = updateSource(functions, source, filename)
-  saveHtmlReport(filename, updated)
+  saveHtmlReport(outputDir, filename, updated)
 }
 
+// has to be synchronous to work on process exit
 function writeResults () {
   const results = global.__instrumenter.files
   const message = JSON.stringify(results, null, 2)
@@ -73,7 +99,23 @@ function writeResults () {
   const files = keys(results)
   console.log('covered source files', files)
 
-  files.forEach(writeFileResults(results))
+  const outputDir = 'output'
+  files.forEach(writeFileResults(outputDir)(results))
+
+  const filePages = files
+    .map(relativeTo)
+    .map(md5)
+    .map(name => name + '.html')
+
+  const links = files.map((filename, k) => {
+    const relativeName = relative(process.cwd(), filename)
+    return {
+      link: filePages[k],
+      name: relativeName
+    }
+  })
+
+  saveIndex(outputDir, links)
 }
 
 process.on('exit', function () {
