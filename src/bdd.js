@@ -43,6 +43,10 @@ function saveIndex (outputDir, pages) {
   </li>
   `).join('\n')
   const html = `
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v2.1.5/dist/mini-default.min.css">
+  </head>
   <body>
     <h2>Instrumented files</h2>
     <ul>
@@ -70,7 +74,15 @@ function saveHtmlReport (outputDir, filename, source) {
   const outputFilename = join(outputDir, filenameHashed + '.html')
   const html = `
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v2.1.5/dist/mini-default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+    <style>
+    code {
+      /* avoid mini.css fighting with highlight for now */
+      font-family: -apple-system, BlinkMacSystemFont,"Segoe UI","Roboto", "Droid Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
