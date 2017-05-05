@@ -1,4 +1,5 @@
 const {add, abs, isEmail} = require('./my-lib')
+const {equals} = require('ramda')
 
 describe('my library', () => {
   describe('add', () => {
@@ -26,5 +27,16 @@ describe('my library', () => {
       // hmm, is this enough?
       // maybe we should test 'user.name@gmail.com' and 'user@mail.ru'!
     })
+  })
+})
+
+describe('array lib', () => {
+  const {getEvenNumbers} = require('./array-lib')
+
+  it('computes even numbers', () => {
+    const list = [2, 4, 6]
+    const even = getEvenNumbers(list)
+    const expected = [true, true, true]
+    console.assert(equals(even, expected))
   })
 })
