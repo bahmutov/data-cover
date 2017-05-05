@@ -4,6 +4,11 @@
 
 **Really experimental, do not use yet!**
 
+[![NPM][data-cover-icon]][data-cover-url]
+
+[![Build status][data-cover-ci-image]][data-cover-ci-url]
+[![semantic-release][semantic-image] ][semantic-url]
+
 ## What?
 
 This module can instrument and collect *data coverage* for functions. Instead of measuring
@@ -105,3 +110,10 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
+
+[data-cover-icon]: https://nodei.co/npm/data-cover.svg?downloads=true
+[data-cover-url]: https://npmjs.org/package/data-cover
+[data-cover-ci-image]: https://travis-ci.org/bahmutov/data-cover.svg?branch=master
+[data-cover-ci-url]: https://travis-ci.org/bahmutov/data-cover
+[semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-url]: https://github.com/semantic-release/semantic-release

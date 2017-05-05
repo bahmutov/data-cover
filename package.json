@@ -1,6 +1,5 @@
 {
   "name": "data-cover",
-  "version": "1.0.0",
   "description": "Instruments code for collecting data coverage (instead of code coverage)",
   "main": "index.js",
   "scripts": {
@@ -8,11 +7,12 @@
     "lint": "standard --verbose --fix src/*.js test/*.js",
     "pretest": "npm run lint",
     "e2e": "DEBUG=data-cover mocha -r ./src/bdd.js e2e/spec.js",
-    "cover": "nyc --reporter=html mocha e2e/spec.js"
+    "cover": "nyc --reporter=html mocha e2e/spec.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bahmutov/data-cover.git"
+    "url": "https://github.com/bahmutov/data-cover.git"
   },
   "files": [
     "src",
@@ -35,7 +35,8 @@
     "mocha": "3.2.0",
     "nyc": "10.0.0",
     "snap-shot": "2.16.0",
-    "standard": "10.0.2"
+    "standard": "10.0.2",
+    "semantic-release": "^6.3.2"
   },
   "dependencies": {
     "check-more-types": "2.23.0",
