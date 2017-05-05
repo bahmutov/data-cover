@@ -40,3 +40,16 @@ describe('array lib', () => {
     console.assert(equals(even, expected))
   })
 })
+
+describe('an observable', () => {
+  const {getNumbers} = require('./stream-lib')
+
+  it('works', done => {
+    getNumbers([1, 'foo', undefined])
+      .subscribe(
+        null,
+        null,
+        done
+      )
+  })
+})

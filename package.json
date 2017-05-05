@@ -34,9 +34,10 @@
     "common-tags": "1.4.0",
     "mocha": "3.2.0",
     "nyc": "10.0.0",
+    "rxjs": "5.3.0",
+    "semantic-release": "^6.3.2",
     "snap-shot": "2.16.0",
-    "standard": "10.0.2",
-    "semantic-release": "^6.3.2"
+    "standard": "10.0.2"
   },
   "dependencies": {
     "check-more-types": "2.23.0",
