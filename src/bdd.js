@@ -58,10 +58,14 @@ function saveHtmlReport (filename, source) {
   debug('saved file %s', outputFilename)
 }
 
-process.on('exit', function () {
-  debug('data-cover is done')
-  hook.unhook('.js')
+const writeFileResults = results => filename => {
+  const functions = results[filename].functions
+  const source = read(filename, 'utf8')
+  const updated = updateSource(functions, source, filename)
+  saveHtmlReport(filename, updated)
+}
 
+function writeResults () {
   const results = global.__instrumenter.files
   const message = JSON.stringify(results, null, 2)
   debug(message)
@@ -69,10 +73,11 @@ process.on('exit', function () {
   const files = keys(results)
   console.log('covered source files', files)
 
-  files.forEach(filename => {
-    const functions = results[filename].functions
-    const source = read(filename, 'utf8')
-    const updated = updateSource(functions, source, filename)
-    saveHtmlReport(filename, updated)
-  })
+  files.forEach(writeFileResults(results))
+}
+
+process.on('exit', function () {
+  debug('data-cover is done')
+  hook.unhook('.js')
+  writeResults()
 })
